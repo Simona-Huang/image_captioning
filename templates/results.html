@@ -1,0 +1,21 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Image Captioning</title>
+	<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+
+<h3>Generated Caption:</h3>
+<div>{{ caption }}</div>
+
+
+
+<div id='button'>
+	  <form action="/">
+	    <input type=submit value='Submit another photo'>
+	  </form>
+</div>
+
+  </body>
+</html>
