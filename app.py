@@ -72,37 +72,25 @@ def allowed_file(filename):
 @app.route('/', methods=['GET', 'POST'])
 def upload_file():
 	caption = ""
-	try:
-		if request.method == 'POST':
-	# check if the post request has the file part
-			if 'file' not in request.files:
-				flash('No file part')
-				return redirect(request.url)
-			file = request.files['file']
-	# if user does not select file, browser also
-	# submit an empty part without filename
-			if file.filename == '':
-				flash('No selected file')
-				return redirect(request.url)
-			if file and allowed_file(file.filename):
-				# print ("file : {} ".format(type(file)))
-				filename = secure_filename(file.filename)
-				direc = os.path.join(app.config['UPLOAD_FOLDER'], filename)
-				file.save(direc)
-				caption = generateCaption(direc)
-				return render_template('imageform.html', caption = caption, filename = filename)
-	except:
-		return  '''
-	<!doctype html>
-	<title>Image Captioning</title>
-	<h1>Image Captioning</h1>
-	<h3>Upload New Image</h3>
-	<form method=post enctype=multipart/form-data>
-	<input type=file name=file>
-	<input type=submit value=Upload>
+	if request.method == 'POST':
+# check if the post request has the file part
+		if 'file' not in request.files:
+			flash('No file part')
+			return redirect(request.url)
+		file = request.files['file']
+# if user does not select file, browser also
+# submit an empty part without filename
+		if file.filename == '':
+			flash('No selected file')
+			return redirect(request.url)
+		if file and allowed_file(file.filename):
+			# print ("file : {} ".format(type(file)))
+			filename = secure_filename(file.filename)
+			direc = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+			file.save(direc)
+			caption = generateCaption(direc)
+			return render_template('imageform.html', caption = caption, filename = filename)
  
-	'''
-
 	return '''
 	<!doctype html>
 	<title>Image Captioning</title>
